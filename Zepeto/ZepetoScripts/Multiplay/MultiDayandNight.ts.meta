@@ -1,0 +1,38 @@
+fileFormatVersion: 2
+guid: 50e50ea994161cb46991488641bb8f0c
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass MultiDayandNight extends
+    ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor() {\r\n        super(...arguments);\r\n       
+    // Light orbit variables\r\n        this.rotSpeed = 0.1;\r\n        this.characterSpeedControlValue
+    = 6;\r\n        // Multiplayer Sync Variables\r\n        this.isMultiplayMode
+    = false;\r\n        this.syncCharacterTransforms = new Map();\r\n        this.myIdx
+    = 0;\r\n        this.isLocalPlayerOnBlock = false;\r\n    }\r\n    Start() {\r\n   
+    }\r\n    /* RotateLight()\r\n    - Rotate block if the block rotation option
+    is on\r\n*/\r\n    rotatelight() {\r\n        //let deltaRotation: Quaternion
+    = Quaternion.Euler(this.eulerAngleVelocity * Time.fixedDeltaTime);\r\n       
+    //this.transform.Rotate(this.rotatingPoint.position, this.rotateAroundAxis, this.rotSpeed
+    * Time.deltaTime);\r\n        this.transform.Rotate(this.rotSpeed * UnityEngine_1.Time.deltaTime,
+    0, 0);\r\n    }\r\n    Update() {\r\n        // Block orbit\r\n        //this.transform.RotateAround(this.rotatingPoint.position,
+    this.rotateAroundAxis, this.rotSpeed * Time.deltaTime);\r\n        this.rotatelight();\r\n   
+    }\r\n}\r\nexports.default = MultiDayandNight;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTXVsdGlEYXlhbmROaWdodC5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbIk11bHRpRGF5YW5kTmlnaHQudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFBQSw2Q0FBc0k7QUFFdEksaURBQXFEO0FBR3JELE1BQXFCLGdCQUFpQixTQUFRLHFDQUFxQjtJQUFuRTs7UUFFSSx3QkFBd0I7UUFFakIsYUFBUSxHQUFXLEdBQUcsQ0FBQztRQUV2QiwrQkFBMEIsR0FBVyxDQUFDLENBQUM7UUFFOUMsNkJBQTZCO1FBQ3JCLG9CQUFlLEdBQVksS0FBSyxDQUFDO1FBQ2pDLDRCQUF1QixHQUEyQixJQUFJLEdBQUcsRUFBcUIsQ0FBQztRQUMvRSxVQUFLLEdBQVcsQ0FBQyxDQUFDO1FBRWxCLHlCQUFvQixHQUFZLEtBQUssQ0FBQztJQTRCbEQsQ0FBQztJQXJCRyxLQUFLO0lBRUwsQ0FBQztJQUVEOztFQUVGO0lBQ1UsV0FBVztRQUNmLGtHQUFrRztRQUNsRyw0R0FBNEc7UUFDNUcsSUFBSSxDQUFDLFNBQVMsQ0FBQyxNQUFNLENBQUMsSUFBSSxDQUFDLFFBQVEsR0FBRyxrQkFBSSxDQUFDLFNBQVMsRUFBRSxDQUFDLEVBQUUsQ0FBQyxDQUFDLENBQUM7SUFDaEUsQ0FBQztJQUdELE1BQU07UUFFRixjQUFjO1FBQ2Qsa0hBQWtIO1FBQ2xILElBQUksQ0FBQyxXQUFXLEVBQUUsQ0FBQztJQUN2QixDQUFDO0NBRUo7QUF6Q0QsbUNBeUNDIn0=","assetPath":"Assets/Zepeto/ZepetoScripts/Multiplay/MultiDayandNight.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"rotSpeed","type":"System.Single","isArray":false,"initValue":["0.1"],"enumKeys":[],"enumValues":[],"attributes":[{"name":"Header","args":["\"DayandNight\""]}]},{"assembly":"UnityEngine.CoreModule","name":"rotatingPoint","type":"UnityEngine.Transform","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"characterSpeedControlValue","type":"System.Single","isArray":false,"initValue":["6"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"UnityEngine.CoreModule","name":"eulerAngleVelocity","type":"UnityEngine.Vector3","isArray":false,"initValue":[],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"MultiDayandNight","description":""},"isCompiled":true}'
+  typescriptHash: 01c00f47daf7eb5fe8c8089cd11e98d3
+  onlyWriteTrigger: 0

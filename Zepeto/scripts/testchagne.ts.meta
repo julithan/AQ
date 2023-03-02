@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 87445e10e8e4fcf45b989b3ecc713443
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nclass
+    testchagne extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n    constructor()
+    {\r\n        super(...arguments);\r\n        this.rotationSpeedX = 0.1;\r\n       
+    this.rotationSpeedY = 0;\r\n        this.rotationSpeedZ = 0;\r\n    }\r\n   
+    Update() {\r\n        this.transform.Rotate(this.rotationSpeedX, this.rotationSpeedY,
+    this.rotationSpeedZ);\r\n    }\r\n    Start() {\r\n    }\r\n}\r\nexports.default
+    = testchagne;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoidGVzdGNoYWduZS5qcyIsInNvdXJjZVJvb3QiOiIiLCJzb3VyY2VzIjpbInRlc3RjaGFnbmUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7QUFDQSxpREFBcUQ7QUFFckQsTUFBcUIsVUFBVyxTQUFRLHFDQUFxQjtJQUE3RDs7UUFFVyxtQkFBYyxHQUFXLEdBQUcsQ0FBQztRQUM3QixtQkFBYyxHQUFXLENBQUMsQ0FBQztRQUMzQixtQkFBYyxHQUFXLENBQUMsQ0FBQztJQVV0QyxDQUFDO0lBUkcsTUFBTTtRQUNGLElBQUksQ0FBQyxTQUFTLENBQUMsTUFBTSxDQUFDLElBQUksQ0FBQyxjQUFjLEVBQUUsSUFBSSxDQUFDLGNBQWMsRUFBRSxJQUFJLENBQUMsY0FBYyxDQUFDLENBQUM7SUFDekYsQ0FBQztJQUVELEtBQUs7SUFFTCxDQUFDO0NBRUo7QUFkRCw2QkFjQyJ9","assetPath":"Assets/Zepeto/scripts/testchagne.ts","manifest":{"properties":[{"assembly":"mscorlib","name":"rotationSpeedX","type":"System.Single","isArray":false,"initValue":["0.1"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"rotationSpeedY","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[]},{"assembly":"mscorlib","name":"rotationSpeedZ","type":"System.Single","isArray":false,"initValue":["0"],"enumKeys":[],"enumValues":[],"attributes":[]}],"name":"testchagne","description":""},"isCompiled":true}'
+  typescriptHash: 031e1b728bd51f98731c622a24e93c7a
+  onlyWriteTrigger: 0

@@ -1,0 +1,40 @@
+fileFormatVersion: 2
+guid: 43fe2f926d58cea48b1c237f9488391d
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst
+    UnityEngine_1 = require(\"UnityEngine\");\r\nconst ZEPETO_Character_Controller_1
+    = require(\"ZEPETO.Character.Controller\");\r\nclass MultiTelport extends ZEPETO_Script_1.ZepetoScriptBehaviour
+    {\r\n    Start() {\r\n        ZEPETO_Character_Controller_1.ZepetoPlayers.instance.OnAddedLocalPlayer.AddListener(()
+    => {\r\n            this.localPlayerCharacter = ZEPETO_Character_Controller_1.ZepetoPlayers.instance.LocalPlayer.zepetoPlayer.character.gameObject;\r\n       
+    });\r\n        if (null != this.Starter) {\r\n            this.isMultiplayMode
+    = true;\r\n        }\r\n    }\r\n    OnTriggerEnter(coll) {\r\n        if (coll.gameObject
+    != this.localPlayerCharacter) {\r\n            return;\r\n        }\r\n       
+    this.StartCoroutine(this.RespawnCharacter(coll.gameObject));\r\n        if (this.isMultiplayMode)
+    {\r\n            this.Starter.SendOnFallTriggerEnter();\r\n        }\r\n    }\r\n   
+    *RespawnCharacter(obj) {\r\n        let character = obj.GetComponent($typeof(ZEPETO_Character_Controller_1.ZepetoCharacter));\r\n       
+    while (true) {\r\n            if (UnityEngine_1.Vector3.op_Inequality(obj.transform.position,
+    UnityEngine_1.Vector3.zero)) {\r\n                character.Teleport(UnityEngine_1.Vector3.zero,
+    UnityEngine_1.Quaternion.identity);\r\n                if (obj.transform.position.y
+    > -1)\r\n                    break;\r\n            }\r\n            yield new
+    UnityEngine_1.WaitForSeconds(0.3);\r\n        }\r\n    }\r\n}\r\nexports.default
+    = MultiTelport;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiTXVsdGlUZWxwb3J0LmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiTXVsdGlUZWxwb3J0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsaURBQXFEO0FBQ3JELDZDQUF1RjtBQUN2Riw2RUFBNEU7QUFHNUUsTUFBcUIsWUFBYSxTQUFRLHFDQUFxQjtJQU9uRCxLQUFLO1FBQ1QsMkNBQWEsQ0FBQyxRQUFRLENBQUMsa0JBQWtCLENBQUMsV0FBVyxDQUFDLEdBQUcsRUFBRTtZQUN2RCxJQUFJLENBQUMsb0JBQW9CLEdBQUcsMkNBQWEsQ0FBQyxRQUFRLENBQUMsV0FBVyxDQUFDLFlBQVksQ0FBQyxTQUFTLENBQUMsVUFBVSxDQUFDO1FBQ3JHLENBQUMsQ0FBQyxDQUFDO1FBRUgsSUFBSSxJQUFJLElBQUksSUFBSSxDQUFDLE9BQU8sRUFDeEI7WUFDSSxJQUFJLENBQUMsZUFBZSxHQUFHLElBQUksQ0FBQztTQUMvQjtJQUNMLENBQUM7SUFFTyxjQUFjLENBQUMsSUFBYztRQUNqQyxJQUFJLElBQUksQ0FBQyxVQUFVLElBQUksSUFBSSxDQUFDLG9CQUFvQixFQUFFO1lBQzlDLE9BQU87U0FDVjtRQUVELElBQUksQ0FBQyxjQUFjLENBQUMsSUFBSSxDQUFDLGdCQUFnQixDQUFDLElBQUksQ0FBQyxVQUFVLENBQUMsQ0FBQyxDQUFDO1FBQzVELElBQUksSUFBSSxDQUFDLGVBQWUsRUFBRTtZQUN0QixJQUFJLENBQUMsT0FBTyxDQUFDLHNCQUFzQixFQUFFLENBQUM7U0FDekM7SUFDTCxDQUFDO0lBRU8sQ0FBQyxnQkFBZ0IsQ0FBQyxHQUFlO1FBQ3JDLElBQUksU0FBUyxHQUFHLEdBQUcsQ0FBQyxZQUFZLFNBQUMsNkNBQWUsRUFBRyxDQUFDO1FBQ3BELE9BQU8sSUFBSSxFQUFFO1lBQ1QsSUFwQytCLHFCQUFPLENBNkNzM3BCLGFBQWMsQ0FUdDZwQixHQUFHLENBQUMsU0FBUyxDQUFDLFFBQVEsRUFBSSxxQkFBTyxDQUFDLElBQUksR0FBRTtnQkFDeEMsU0FBUyxDQUFDLFFBQVEsQ0FBQyxxQkFBTyxDQUFDLElBQUksRUFBRSx3QkFBVSxDQUFDLFFBQVEsQ0FBQyxDQUFDO2dCQUN0RCxJQUFJLEdBQUcsQ0FBQyxTQUFTLENBQUMsUUFBUSxDQUFDLENBQUMsR0FBRyxDQUFDLENBQUM7b0JBQzdCLE1BQU07YUFDYjtZQUNELE1BQU0sSUFBSSw0QkFBYyxDQUFDLEdBQUcsQ0FBQyxDQUFDO1NBQ2pDO0lBQ0wsQ0FBQztDQUVKO0FBekNELCtCQXlDQyJ9","assetPath":"Assets/Zepeto/ZepetoScripts/Multiplay/MultiTelport.ts","manifest":{"properties":[],"name":"MultiTelport","description":""},"isCompiled":true}'
+  typescriptHash: 836a5a07221915f834e5c48af619f154
+  onlyWriteTrigger: 0

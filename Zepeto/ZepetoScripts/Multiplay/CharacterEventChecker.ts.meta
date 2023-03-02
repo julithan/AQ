@@ -1,0 +1,78 @@
+fileFormatVersion: 2
+guid: fa501542caeecad41b3d654b5df9274b
+importerOverride: ZEPETO.Script.Compiler:ZEPETO.Script:TypescriptAssetImporter
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: -1123457745, guid: 54cf806323ffe4418a4ce4cc63fe6b9d, type: 3}
+  isAssemblyDeclarations: 0
+  assembly: 
+  generateAllTypes: 1
+  types: []
+  generateWrapper: 0
+  overrideWrapperTypes: 0
+  wrapperTypes: []
+  WrapperFilters: []
+  wrapperOutputDirectory: Generated
+  compiledResult: '{"source":"\"use strict\";\r\nObject.defineProperty(exports, \"__esModule\",
+    { value: true });\r\nconst UnityEngine_1 = require(\"UnityEngine\");\r\nconst
+    ZEPETO_Script_1 = require(\"ZEPETO.Script\");\r\nconst UnityEngine_2 = require(\"UnityEngine\");\r\nclass
+    CharacterEventChecker extends ZEPETO_Script_1.ZepetoScriptBehaviour {\r\n   
+    constructor() {\r\n        super(...arguments);\r\n        this.jumpPosition
+    = UnityEngine_1.Vector3.zero;\r\n        this.isFirstLandingOnPlatform = true;\r\n   
+    }\r\n    Start() {\r\n        this.prevLandedPlatform = null;\r\n        this.prevLandedBlock
+    = null;\r\n        this.canCheckMovingFromPlatformToBlock = true;\r\n       
+    this.isJumpingFromPlatformToBlock = false;\r\n    }\r\n    Update() {\r\n       
+    // Sends a message to the server when a floor raycast hits a fall check trigger.
+    \r\n        // - Detect movement between platform <-> blocks\r\n        // -
+    canCheckMovingFromPlatformToBlock checks to make sure code isn''t run twice\r\n       
+    let ref = $ref();\r\n        if (UnityEngine_2.Physics.Raycast(this.transform.position,
+    UnityEngine_1.Vector3.down, ref, 1000)) {\r\n            let hitInfo = $unref(ref);\r\n           
+    if (hitInfo.collider.tag == \"HarborCheckTrigger\") {\r\n                console.log(`[FallCheckTrigger
+    event Check]`);\r\n                this.prevLandedPlatform = null;\r\n               
+    // If leaving from another platform. \r\n                if (false == this.isFirstLandingOnPlatform)\r\n                   
+    this.isFirstLandingOnPlatform = true;\r\n                //  Platform -> Moving
+    block. \r\n                if (this.canCheckMovingFromPlatformToBlock) {\r\n                   
+    this.canCheckMovingFromPlatformToBlock = false;\r\n                    this.isJumpingFromPlatformToBlock
+    = true;\r\n                    // Send Message to Server: When moving from platform
+    to platform, designate it as transport parent.  \r\n                    // Send
+    Character position/ Jump position at the moment of jump.\r\n                   
+    let relativePosition = UnityEngine_1.Vector3.op_Subtraction(this.transform.position,
+    this.jumpPosition);\r\n                    //this.Starter.SendOnTryJumpForMovingToBlock(relativePosition,
+    this.jumpPosition);\r\n                }\r\n            }\r\n            //If
+    the character returns to the current platform after initiating jump\r\n           
+    if (hitInfo.collider.tag == \"Platform\") {\r\n                if (this.isJumpingFromPlatformToBlock)
+    {\r\n                    this.canCheckMovingFromPlatformToBlock = true;\r\n                   
+    this.isJumpingFromPlatformToBlock = false;\r\n                    this.prevLandedBlock
+    = null;\r\n                }\r\n            }\r\n        }\r\n    }\r\n    OnControllerColliderHit(hit)
+    {\r\n        // If the landed block is a moving block, and is different than
+    the previous block\r\n        if (hit.gameObject.tag == \"MovingBlock\") {\r\n           
+    if (this.prevLandedBlock != hit.gameObject) {\r\n                // Send a message
+    to the server that the block has changed. \r\n                //let movingBlock
+    = hit.gameObject.transform.parent.GetComponent<MultiMovingBlock>();\r\n               
+    //movingBlock.SetIsCharacterLandedOnBlock();\r\n            }\r\n           
+    this.prevLandedBlock = hit.gameObject;\r\n        }\r\n        // If the landed
+    block is an orbiting block and is different than the previous block\r\n       
+    if (hit.gameObject.tag == \"OrbitingBlock\") {\r\n            if (this.prevLandedBlock
+    != hit.gameObject) {\r\n                // Send a message to the server that
+    the block has changed. \r\n                //let orbitingBlock = hit.gameObject.transform.parent.GetComponent<MultiOrbitingBlock>();\r\n               
+    //orbitingBlock.SetIsCharacterLandedOnBlock();\r\n            }\r\n           
+    this.prevLandedBlock = hit.gameObject;\r\n        }\r\n        if (hit.gameObject.tag
+    != \"Platform\")\r\n            return;\r\n        // If landing on a platform
+    that is not the previous platform. \r\n        if (this.prevLandedPlatform !=
+    hit.gameObject) {\r\n            this.platformRenderer = hit.gameObject.GetComponentInChildren($typeof(UnityEngine_1.Renderer));\r\n           
+    this.isJumpingFromPlatformToBlock = false;\r\n            this.canCheckMovingFromPlatformToBlock
+    = true;\r\n            this.prevLandedPlatform = hit.gameObject;\r\n           
+    this.prevLandedBlock = null;\r\n            //Send message to server. \r\n           
+    //this.Starter.SendOnPlatformState();\r\n        }\r\n        //Character position
+    above the current platform. \r\n        this.jumpPosition = new UnityEngine_1.Vector3(this.gameObject.transform.position.x,
+    this.platformRenderer.bounds.max.y, this.gameObject.transform.position.z);\r\n   
+    }\r\n    OnTriggerEnter(coll) {\r\n        if (coll.gameObject.tag != \"HarborCheckTrigger\")
+    {\r\n            return;\r\n        }\r\n        this.prevLandedPlatform = null;\r\n   
+    }\r\n}\r\nexports.default = CharacterEventChecker;\r\n//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiQ2hhcmFjdGVyRXZlbnRDaGVja2VyLmpzIiwic291cmNlUm9vdCI6IiIsInNvdXJjZXMiOlsiQ2hhcmFjdGVyRXZlbnRDaGVja2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7O0FBQUEsNkNBQTZGO0FBQzdGLGlEQUFxRDtBQUVyRCw2Q0FBa0Q7QUFFbEQsTUFBcUIscUJBQXNCLFNBQVEscUNBQXFCO0lBQXhFOztRQU9ZLGlCQUFZLEdBQVkscUJBQU8sQ0FBQyxJQUFJLENBQUM7UUF1RnJDLDZCQUF3QixHQUFZLElBQUksQ0FBQztJQVNyRCxDQUFDO0lBN0ZHLEtBQUs7UUFDRCxJQUFJLENBQUMsa0JBQWtCLEdBQUcsSUFBSSxDQUFDO1FBQy9CLElBQUksQ0FBQyxlQUFlLEdBQUcsSUFBSSxDQUFDO1FBQzVCLElBQUksQ0FBQyxpQ0FBaUMsR0FBRyxJQUFJLENBQUM7UUFDOUMsSUFBSSxDQUFDLDRCQUE0QixHQUFHLEtBQUssQ0FBQztJQUM5QyxDQUFDO0lBRUQsTUFBTTtRQUNGLGlGQUFpRjtRQUNqRixnREFBZ0Q7UUFDaEQsK0VBQStFO1FBQy9FLElBQUksR0FBRyxHQUFHLElBQUksRUFBYyxDQUFDO1FBQzdCLElBQUkscUJBQU8sQ0FBQyxPQUFPLENBQUMsSUFBSSxDQUFDLFNBQVMsQ0FBQyxRQUFRLEVBQUUscUJBQU8sQ0FBQyxJQUFJLEVBQUUsR0FBRyxFQUFFLElBQUksQ0FBQyxFQUFFO1lBQ25FLElBQUksT0FBTyxHQUFHLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQztZQUUxQixJQUFJLE9BQU8sQ0FBQyxRQUFRLENBQUMsR0FBRyxJQUFJLG9CQUFvQixFQUFFO2dCQUM5QyxPQUFPLENBQUMsR0FBRyxDQUFDLGdDQUFnQyxDQUFDLENBQUM7Z0JBQzlDLElBQUksQ0FBQyxrQkFBa0IsR0FBRyxJQUFJLENBQUM7Z0JBQy9CLHFDQUFxQztnQkFDckMsSUFBSSxLQUFLLElBQUksSUFBSSxDQUFDLHdCQUF3QjtvQkFDdEMsSUFBSSxDQUFDLHdCQUF3QixHQUFHLElBQUksQ0FBQztnQkFFekMsOEJBQThCO2dCQUM5QixJQUFJLElBQUksQ0FBQyxpQ0FBaUMsRUFBRTtvQkFDeEMsSUFBSSxDQUFDLGlDQUFpQyxHQUFHLEtBQUssQ0FBQztvQkFDL0MsSUFBSSxDQUFDLDRCQUE0QixHQUFHLElBQUksQ0FBQztvQkFDekMscUdBQXFHO29CQUNyRyxnRUFBZ0U7b0JBQ2hFLElBQUksZ0JBQWdCLEdBM0MvQixxQkFBTyxDQTRHbThoQixjQUFlLENBakV2N2hCLElBQUksQ0FBQyxTQUFTLENBQUMsUUFBUSxFQUFHLElBQUksQ0FBQyxZQUFZLENBQUEsQ0FBQztvQkFDbkUsa0ZBQWtGO2lCQUNyRjthQUNKO1lBRUQsd0VBQXdFO1lBQ3hFLElBQUksT0FBTyxDQUFDLFFBQVEsQ0FBQyxHQUFHLElBQUksVUFBVSxFQUFFO2dCQUNwQyxJQUFJLElBQUksQ0FBQyw0QkFBNEIsRUFBRTtvQkFDbkMsSUFBSSxDQUFDLGlDQUFpQyxHQUFHLElBQUksQ0FBQztvQkFDOUMsSUFBSSxDQUFDLDRCQUE0QixHQUFHLEtBQUssQ0FBQztvQkFDMUMsSUFBSSxDQUFDLGVBQWUsR0FBRyxJQUFJLENBQUM7aUJBQy9CO2FBQ0o7U0FDSjtJQUNMLENBQUM7SUFFRCx1QkFBdUIsQ0FBQyxHQUEwQjtRQUU5QyxrRkFBa0Y7UUFDbEYsSUFBSSxHQUFHLENBQUMsVUFBVSxDQUFDLEdBQUcsSUFBSSxhQUFhLEVBQUU7WUFDckMsSUFBSSxJQUFJLENBQUMsZUFBZSxJQUFJLEdBQUcsQ0FBQyxVQUFVLEVBQUU7Z0JBQ3hDLDREQUE0RDtnQkFDNUQscUZBQXFGO2dCQUNyRiw0Q0FBNEM7YUFDL0M7WUFDRCxJQUFJLENBQUMsZUFBZSxHQUFHLEdBQUcsQ0FBQyxVQUFVLENBQUM7U0FDekM7UUFDRCxvRkFBb0Y7UUFDcEYsSUFBSSxHQUFHLENBQUMsVUFBVSxDQUFDLEdBQUcsSUFBSSxlQUFlLEVBQUU7WUFDdkMsSUFBSSxJQUFJLENBQUMsZUFBZSxJQUFJLEdBQUcsQ0FBQyxVQUFVLEVBQUU7Z0JBQ3hDLDREQUE0RDtnQkFDNUQseUZBQXlGO2dCQUN6Riw4Q0FBOEM7YUFDakQ7WUFDRCxJQUFJLENBQUMsZUFBZSxHQUFHLEdBQUcsQ0FBQyxVQUFVLENBQUM7U0FDekM7UUFFRCxJQUFJLEdBQUcsQ0FBQyxVQUFVLENBQUMsR0FBRyxJQUFJLFVBQVU7WUFDaEMsT0FBTztRQUVYLCtEQUErRDtRQUMvRCxJQUFJLElBQUksQ0FBQyxrQkFBa0IsSUFBSSxHQUFHLENBQUMsVUFBVSxFQUFFO1lBQzNDLElBQUksQ0FBQyxnQkFBZ0IsR0FBRyxHQUFHLENBQUMsVUFBVSxDQUFDLHNCQUFzQixTQUFDLHNCQUFRLEVBQUcsQ0FBQztZQUMxRSxJQUFJLENBQUMsNEJBQTRCLEdBQUcsS0FBSyxDQUFDO1lBQzFDLElBQUksQ0FBQyxpQ0FBaUMsR0FBRyxJQUFJLENBQUM7WUFDOUMsSUFBSSxDQUFDLGtCQUFrQixHQUFHLEdBQUcsQ0FBQyxVQUFVLENBQUM7WUFDekMsSUFBSSxDQUFDLGVBQWUsR0FBRyxJQUFJLENBQUM7WUFDNUIsMEJBQTBCO1lBQzFCLHFDQUFxQztTQUN4QztRQUVELGlEQUFpRDtRQUNqRCxJQUFJLENBQUMsWUFBWSxHQUFHLElBQUkscUJBQU8sQ0FBQyxJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsQ0FBQyxFQUFFLElBQUksQ0FBQyxnQkFBZ0IsQ0FBQyxNQUFNLENBQUMsR0FBRyxDQUFDLENBQUMsRUFBRSxJQUFJLENBQUMsVUFBVSxDQUFDLFNBQVMsQ0FBQyxRQUFRLENBQUMsQ0FBQyxDQUFDLENBQUM7SUFFcEosQ0FBQztJQUlELGNBQWMsQ0FBQyxJQUFjO1FBQ3pCLElBQUksSUFBSSxDQUFDLFVBQVUsQ0FBQyxHQUFHLElBQUksb0JBQW9CLEVBQUU7WUFDN0MsT0FBTztTQUNWO1FBQ0QsSUFBSSxDQUFDLGtCQUFrQixHQUFHLElBQUksQ0FBQztJQUNuQyxDQUFDO0NBRUo7QUF2R0Qsd0NBdUdDIn0=","assetPath":"Assets/Zepeto/ZepetoScripts/Multiplay/CharacterEventChecker.ts","manifest":{"properties":[],"name":"CharacterEventChecker","description":""},"isCompiled":true}'
+  typescriptHash: 8604fdd7da983726768cceefb1442745
+  onlyWriteTrigger: 0
